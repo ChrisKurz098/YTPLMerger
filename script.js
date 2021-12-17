@@ -46,7 +46,13 @@ function mergePlaylist() {
   for (let i = 0; i < 10; i++) {
 
     let vidId = playlistData.result.items[i].contentDetails.videoId;
-
+    function authenticate2() {
+      return gapi.auth2.getAuthInstance()
+          .signIn({scope: "https://www.googleapis.com/auth/youtube.force-ssl"})
+          .then(function() { console.log("Sign-in successful"); },
+                function(err) { console.error("Error signing in", err); });
+    }
+    authenticate2().then(loadClient);
     console.log("String VidId: ", vidId);
     // Make sure the client is loaded and sign-in is complete before calling this method.
       return gapi.client.youtube.playlistItems.insert({
