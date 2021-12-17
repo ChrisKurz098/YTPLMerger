@@ -45,8 +45,8 @@ function mergePlaylist() {
   console.log(playlistData.result.items[0].contentDetails.videoId);
   for (let i = 0; i < 10; i++) {
 
-   let vidId =  playlistData.result.items[i].contentDetails.videoId
-   vidId = toString(vidId);
+   let vidId =  playlistData.result.items[i].contentDetails.videoId;
+   
    console.log("String VidId: ", vidId);
 
     /**
