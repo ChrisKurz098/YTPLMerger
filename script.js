@@ -2,6 +2,8 @@
 
 const apiKey = 'AIzaSyCZuVb4_kTsIKbDBDGMM-KDRnIHyUoJyvw'
 
+let playlistData = [];
+
 function authenticate() {
     return gapi.auth2.getAuthInstance()
         .signIn({scope: "https://www.googleapis.com/auth/youtube.readonly"})
@@ -26,9 +28,15 @@ function authenticate() {
         .then(function(response) {
                 // Handle the results here (response.result has the parsed body).
                 console.log("Response", response);
+                playlistData = response;
+                mergePlaylist();
               },
               function(err) { console.error("Execute error", err); });
   }
   gapi.load("client:auth2", function() {
     gapi.auth2.init({client_id: "790008202741-acjnj5f0ssjnq29pbkm47qmkhmtq04ht.apps.googleusercontent.com"});
   });
+
+  function mergePlaylist(){
+console.log(playlistData.item[i].resourceId.videoId);
+  }
