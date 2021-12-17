@@ -41,7 +41,7 @@ function authenticate() {
 
   function mergePlaylist(){
    
-      console.log(playlistData.result.item.contentDetails.videoId);
+      console.log(playlistData.result.item[0].contentDetails.videoId);
   
 
   }
