@@ -30,5 +30,5 @@ function authenticate() {
               function(err) { console.error("Execute error", err); });
   }
   gapi.load("client:auth2", function() {
-    gapi.auth2.init({client_id: "790008202741-pitk2e76em7urkmjub93c7ps43grvbcn.apps.googleusercontent.com"});
+    gapi.auth2.init({client_id: "790008202741-acjnj5f0ssjnq29pbkm47qmkhmtq04ht.apps.googleusercontent.com"});
   });
