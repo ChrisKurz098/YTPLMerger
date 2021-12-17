@@ -30,6 +30,7 @@ function execute() {
       console.log("Response", response);
 
       playlistData = response;
+      authenticate2().then(loadClient);
       mergePlaylist();
 
     },
@@ -39,20 +40,21 @@ gapi.load("client:auth2", function () {
   gapi.auth2.init({ client_id: "790008202741-acjnj5f0ssjnq29pbkm47qmkhmtq04ht.apps.googleusercontent.com" });
 });
 ////////////////////////////////////////////////////////MERGE FUNCTION////////////////////////////////////////////////
-
+function authenticate2() {
+  return gapi.auth2.getAuthInstance()
+      .signIn({scope: "https://www.googleapis.com/auth/youtube.force-ssl"})
+      .then(function() { console.log("Sign-in successful"); },
+            function(err) { console.error("Error signing in", err); });
+}
+///////////////////////////////////////////
 function mergePlaylist() {
 
   console.log(playlistData.result.items[0].contentDetails.videoId);
   for (let i = 0; i < 10; i++) {
 
     let vidId = playlistData.result.items[i].contentDetails.videoId;
-    function authenticate2() {
-      return gapi.auth2.getAuthInstance()
-          .signIn({scope: "https://www.googleapis.com/auth/youtube.force-ssl"})
-          .then(function() { console.log("Sign-in successful"); },
-                function(err) { console.error("Error signing in", err); });
-    }
-    authenticate2().then(loadClient);
+    
+    
     console.log("String VidId: ", vidId);
     // Make sure the client is loaded and sign-in is complete before calling this method.
       return gapi.client.youtube.playlistItems.insert({
