@@ -3,6 +3,8 @@
 const apiKey = 'AIzaSyCZuVb4_kTsIKbDBDGMM-KDRnIHyUoJyvw'
 
 let playlistData = [];
+let timer = 0;
+let max = 20;
 
 function authenticate() {
   return gapi.auth2.getAuthInstance()
@@ -50,9 +52,8 @@ function authenticate2() {
 function mergePlaylist() {
 
   console.log(playlistData.result.items[0].contentDetails.videoId);
-  for (let i = 0; i < 10; i++) {
-
-    let vidId = playlistData.result.items[i].contentDetails.videoId;
+if (timer<max){
+    let vidId = playlistData.result.items[timer].contentDetails.videoId;
     
     
     console.log("String VidId: ", vidId);
@@ -75,10 +76,11 @@ function mergePlaylist() {
         .then(function (response) {
           // Handle the results here (response.result has the parsed body).
           console.log("Response", response);
+          timer++;
+          mergePlaylist();
         },
           function (err) { console.error("Execute error", err); });
-    
 
-
-  }
+      }
+      else {return;}
 }
