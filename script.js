@@ -38,5 +38,8 @@ function authenticate() {
   });
 
   function mergePlaylist(){
-console.log(playlistData.item[i].resourceId.videoId);
+    playlistData.json().then(function(data){
+      console.log(data.item[i].resourceId.videoId);
+    });
+
   }
