@@ -28,12 +28,9 @@ function authenticate() {
         .then(function(response) {
                 // Handle the results here (response.result has the parsed body).
                 console.log("Response", response);
-                response.json().then(function(data){
-                  console.log(data);
-                  playlistData = data;
-                  mergePlaylist();
-                });
               
+                  playlistData = response;
+                  mergePlaylist();
                
               },
               function(err) { console.error("Execute error", err); });
@@ -43,8 +40,8 @@ function authenticate() {
   });
 
   function mergePlaylist(){
-    playlistData.json().then(function(data){
+   
       console.log(playlistData.item[0].resourceId.videoId);
-    });
+  
 
   }
