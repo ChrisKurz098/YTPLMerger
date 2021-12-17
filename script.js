@@ -31,7 +31,7 @@ function execute() {
 
       playlistData = response;
       authenticate2().then(loadClient);
-      mergePlaylist();
+      
 
     },
       function (err) { console.error("Execute error", err); });
@@ -43,7 +43,7 @@ gapi.load("client:auth2", function () {
 function authenticate2() {
   return gapi.auth2.getAuthInstance()
       .signIn({scope: "https://www.googleapis.com/auth/youtube.force-ssl"})
-      .then(function() { console.log("Sign-in successful"); },
+      .then(function() { console.log("Sign-in successful"); mergePlaylist(); },
             function(err) { console.error("Error signing in", err); });
 }
 ///////////////////////////////////////////
