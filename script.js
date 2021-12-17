@@ -79,7 +79,7 @@ function mergePlaylist() {
             "position": 0,
             "resourceId": {
               "kind": "youtube#video",
-              "videoId": "M7FIvfx5J10"
+              "videoId": vidId
             }
           }
         }
