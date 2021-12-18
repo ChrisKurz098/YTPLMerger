@@ -9,8 +9,8 @@ let timer = 0;
 
 
 function authenticate() {
-  playListUpdate = document.getElementById("pListA").value;
-  initPlaylist = document.getElementById("pListB").value;
+  playListUpdate = document.getElementById("pListB").value;
+  initPlaylist = document.getElementById("pListA").value;
   max = document.getElementById("num").value;;
   return gapi.auth2.getAuthInstance()
     .signIn({ scope: "https://www.googleapis.com/auth/youtube.readonly" })
