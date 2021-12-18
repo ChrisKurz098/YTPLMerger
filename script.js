@@ -59,7 +59,7 @@ function mergePlaylist() {
   console.log(playlistData.result.items[0].contentDetails.videoId);
   if (timer < max) {
     let vidId = playlistData.result.items[timer].contentDetails.videoId;
-if (vidId == undefined || !vidId){timer++;
+if (vidId === undefined || !vidId || !playlistData.result.items[timer].contentDetails){timer++;
   mergePlaylist();}
 
     console.log("String VidId: ", vidId);
