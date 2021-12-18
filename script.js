@@ -1,12 +1,17 @@
 //data.item[i].resourceId.videoId;
 
 const apiKey = 'AIzaSyCZuVb4_kTsIKbDBDGMM-KDRnIHyUoJyvw'
-
+let playListUpdate = "";
+let initPlaylist = "";
+let max = 20;
 let playlistData = [];
 let timer = 0;
-let max = 20;
+
 
 function authenticate() {
+  playListUpdate = document.getElementById("pListA").value;
+  initPlaylist = document.getElementById("pListB").value;
+  max = document.getElementById("num").value;;
   return gapi.auth2.getAuthInstance()
     .signIn({ scope: "https://www.googleapis.com/auth/youtube.readonly" })
     .then(function () { console.log("Sign-in successful"); },
@@ -25,7 +30,7 @@ function execute() {
       "snippet,contentDetails"
     ],
     "maxResults": 200,
-    "playlistId": "PLo6LMGdjaTzI76fH66OWjpBJw0cleQGC6"
+    "playlistId": initPlaylist
   })
     .then(function (response) {
       // Handle the results here (response.result has the parsed body).
@@ -33,7 +38,7 @@ function execute() {
 
       playlistData = response;
       authenticate2().then(loadClient);
-      
+
 
     },
       function (err) { console.error("Execute error", err); });
@@ -44,43 +49,43 @@ gapi.load("client:auth2", function () {
 ////////////////////////////////////////////////////////MERGE FUNCTION////////////////////////////////////////////////
 function authenticate2() {
   return gapi.auth2.getAuthInstance()
-      .signIn({scope: "https://www.googleapis.com/auth/youtube.force-ssl"})
-      .then(function() { console.log("Sign-in successful"); mergePlaylist(); },
-            function(err) { console.error("Error signing in", err); });
+    .signIn({ scope: "https://www.googleapis.com/auth/youtube.force-ssl" })
+    .then(function () { console.log("Sign-in successful"); mergePlaylist(); },
+      function (err) { console.error("Error signing in", err); });
 }
 ///////////////////////////////////////////
 function mergePlaylist() {
 
   console.log(playlistData.result.items[0].contentDetails.videoId);
-if (timer<max){
+  if (timer < max) {
     let vidId = playlistData.result.items[timer].contentDetails.videoId;
-    
-    
+
+
     console.log("String VidId: ", vidId);
     // Make sure the client is loaded and sign-in is complete before calling this method.
-      return gapi.client.youtube.playlistItems.insert({
-        "part": [
-          "snippet"
-        ],
-        "resource": {
-          "snippet": {
-            "playlistId": "PLo6LMGdjaTzKrxY2L-T3G4RnGMisOYTNF",
-            "position": 0,
-            "resourceId": {
-              "kind": "youtube#video",
-              "videoId": vidId
-            }
+    return gapi.client.youtube.playlistItems.insert({
+      "part": [
+        "snippet"
+      ],
+      "resource": {
+        "snippet": {
+          "playlistId": playListUpdate,
+          "position": 0,
+          "resourceId": {
+            "kind": "youtube#video",
+            "videoId": vidId
           }
         }
-      })
-        .then(function (response) {
-          // Handle the results here (response.result has the parsed body).
-          console.log("Response", response);
-          timer++;
-          mergePlaylist();
-        },
-          function (err) { console.error("Execute error", err); });
-
       }
-      else {return;}
+    })
+      .then(function (response) {
+        // Handle the results here (response.result has the parsed body).
+        console.log("Response", response);
+        timer++;
+        mergePlaylist();
+      },
+        function (err) { console.error("Execute error", err); });
+
+  }
+  else { return; }
 }

@@ -9,6 +9,12 @@
 <body>
     <button onclick="authenticate().then(loadClient)">authorize and load</button>
     <button onclick="execute()">execute</button>
+    <p>Playlist to pull from:</p>
+    <input type="text" id = "pListA">
+    <p>Playlist to send videos:</p>
+    <input type="text" id = "pListB">
+    <p>Number of videos to send:</p>
+    <input type="number" id = "num">
 
     <script src="https://apis.google.com/js/api.js"></script>
     <script src="script.js"></script>
