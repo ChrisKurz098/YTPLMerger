@@ -59,7 +59,8 @@ function mergePlaylist() {
   console.log(playlistData.result.items[0].contentDetails.videoId);
   if (timer < max) {
     let vidId = playlistData.result.items[timer].contentDetails.videoId;
-
+if (vidId == undefined){timer++;
+  mergePlaylist();}
 
     console.log("String VidId: ", vidId);
     // Make sure the client is loaded and sign-in is complete before calling this method.
