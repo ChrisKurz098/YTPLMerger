@@ -85,7 +85,10 @@ if (vidId == undefined){timer++;
         timer++;
         mergePlaylist();
       },
-        function (err) { console.error("Execute error", err); });
+        function (err) { console.error("Execute error", err); 
+        timer++;
+        mergePlaylist();
+      });
 
   }
   else { return; }
