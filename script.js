@@ -55,7 +55,7 @@ function authenticate2() {
 }
 ///////////////////////////////////////////
 function mergePlaylist() {
-
+  console.log("items Array: ", playlistData.result.items[timer]);
   console.log(playlistData.result.items[0].contentDetails.videoId);
   if (timer <= max) {
 
