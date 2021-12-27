@@ -59,7 +59,7 @@ function mergePlaylist() {
   console.log(playlistData.result.items[0].contentDetails.videoId);
   if (timer <= max) {
 
-    if (playlistData.result.items[timer].contentDetails==null) {
+    if (!playlistData.result.items[timer]) {
       timer++;
       mergePlaylist();
     }
