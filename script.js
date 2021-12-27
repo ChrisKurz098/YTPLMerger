@@ -29,7 +29,7 @@ function execute() {
     "part": [
       "snippet,contentDetails"
     ],
-    "maxResults": 200,
+    "maxResults": 2000,
     "playlistId": initPlaylist
   })
     .then(function (response) {
@@ -57,11 +57,13 @@ function authenticate2() {
 function mergePlaylist() {
 
   console.log(playlistData.result.items[0].contentDetails.videoId);
-  if (timer < max) {
-    
-if (!playlistData.result.items[timer].contentDetails){timer++;
-  mergePlaylist();}
-  let vidId = playlistData.result.items[timer].contentDetails.videoId;
+  if (timer <= max) {
+
+    if (playlistData.result.items[timer].contentDetails==null) {
+      timer++;
+      mergePlaylist();
+    }
+    let vidId = playlistData.result.items[timer].contentDetails.videoId;
 
     console.log("String VidId: ", vidId);
     // Make sure the client is loaded and sign-in is complete before calling this method.
@@ -83,14 +85,17 @@ if (!playlistData.result.items[timer].contentDetails){timer++;
       .then(function (response) {
         // Handle the results here (response.result has the parsed body).
         console.log("Response", response);
+        console.log("Current: ", timer)
         timer++;
+        console.log("Next: ", timer)
         mergePlaylist();
       },
-        function (err) { console.error("Execute error", err); 
-        timer++;
-        mergePlaylist();
-      });
+        function (err) {
+          console.error("Execute error", err);
+          timer++;
+          mergePlaylist();
+        });
 
   }
-  else { return; }
+  else {console.log("Done."); return; }
 }
