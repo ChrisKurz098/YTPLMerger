@@ -60,6 +60,7 @@ function mergePlaylist() {
   if (timer <= max) {
 
     if (playlistData.result.items[timer] == undefined) {
+      console.log("NO DATA TO LOAD")
       timer++;
       mergePlaylist();
     }
